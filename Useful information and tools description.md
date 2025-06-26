@@ -48,6 +48,18 @@ Burp Suite has many tools for various tasks. We will need:
 + Run LXTerminal console;
 + Enter the command: nmap -p- -sV --open 10.0.2.0
 
+## Lab 1:Exploring the laboratory environment
+- run the machine 
+- Open LXTerminal
+- run the /home/admin/
+- run the whoami command //admin
+- run ifconfig // the ip adress is 10.0.1.11
+- Open Firefox and enter http://www.hacktory.lab/ in the address bar// this is flag:Intr0_fl@g
+- 
+
+  
+
+
 
 
 
