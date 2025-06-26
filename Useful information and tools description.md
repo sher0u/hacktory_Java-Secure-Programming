@@ -1,4 +1,4 @@
-# Useful information and tools description
+walid# Useful information and tools description
 ## Theory:
 ### Linux:
 #### **cd**
@@ -55,8 +55,19 @@ Burp Suite has many tools for various tasks. We will need:
 - run the whoami command //admin
 - run ifconfig // the ip adress is 10.0.1.11
 - Open Firefox and enter http://www.hacktory.lab/ in the address bar// this is flag:Intr0_fl@g
-- 
-
+- Open Burbsuite 
+- open project temperory
+- Use Burp defaults
+- go to Proxy
+- check if the intercepts is on
+- Go to http history
+- in firfoz use FoxyProxy
+- check the Burb suite the https history
+- Check the reponce you will find the flag intr0_header_flag
+- Close the machine
+- Revise what you did
+- take notes
+- Good luck BY KADER
   
 
 
