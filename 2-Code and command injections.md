@@ -42,3 +42,7 @@ List of characters to be filtered:
 -`ProcessBuilder b = new ProcessBuilder(command);`
 #### Good example:
 `ProcessBuilder b = new ProcessBuilder("ping",req.getParameter("ip"));`
+
+
+## Lab 1:RouterV1
+We are going to work with a router configuration web interface. We will find command injection vulnerabilities and get secret information.
