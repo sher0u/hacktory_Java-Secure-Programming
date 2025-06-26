@@ -1,182 +1,58 @@
 # Useful information and tools description
-Here is the clean Markdown code for your `.md` file. Just copy and paste this into any `.md` file (for example, `linux_cheatsheet.md`):
+## Theory:
+### Linux:
+#### **cd**
+ Changes directory.
+#### **pwd**
+Prints the current working directory.
+#### **ls**
+Lists files.
+#### **echo**
+Prints line of text.
+#### **cat**
+Prints content of files.
+#### **find**
+Finds files.
+#### **grep**
+Searches inside files
+#### **cp**
+Copies files.
+#### **mv**
+Moves / renames files and directories.
+#### **rm**
+Removes files and directories.
 
-````markdown
-# 🐧 Useful Information and Tools — Linux CLI
+### Tools:
+#### Code Editor : is used for editing, compilation, and deployment of the application's source code.
 
-## 📁 1. `cd` — Change Directory
-Changes the current working directory.
+#### Burp Suite : Burp Suite is an integrated platform for testing the security of web apps.
+Burp Suite has many tools for various tasks. We will need:
+- **Proxy** – intercepting web proxy that works like a man-in-the-middle between a browser and a web app. It allows intercepting, validating, and modifying raw traffic in both directions.
+- **Intruder** – a tool that performs automated individual attacks on web apps.
+  (Intruder allows you to perform various attacks, like brute-forcing passwords and IDs, fuzzing, etc.)
+- **Repeater** – a tool for manipulating with and resending HTTP requests and analyzing the app's responses.
 
-### **Examples**
-```bash
-cd Desktop/Tools   # Go to Desktop/Tools directory
-cd ~               # Go to home directory
-````
+#### SQLmap : SQLmap is an automated tool for finding and exploiting SQL injections. It works with several SQL dialects and supports many techniques, from using a quote to complex time-based injection vectors. It can exploit injections in various DBMS.
+-How to use SQLmap?
++ Run LXTerminal console;
++ Run LXTerminal console; sqlmap -u http://www.hacktory.lab/
+  
+#### TPLmap : TPLmap is a Python tool for automatic detection and exploitation of Server-Side Template Injections. TPLmap has settings and options similar to those of SQLmap. It supports numerous techniques and vectors (including blind injections) and can execute code download/upload arbitrary files
+- How to use TPLmap?
++ Run LXTerminal console;
++ Go to the folder Tools/tplmap:cd Desktop/Tools/tplmap
++ Enter the command:./tplmap.py --os-shell -u http://www.hacktory.lab/
 
----
+#### Nmap: Nmap is a network mapper. Nmap can be used for network security checks. It identifies the computer connected to a network, gets their data (name, OS, software), and identifies the firewalls used on the scanned node.
+- How to use Nmap?
++ Run LXTerminal console;
++ Enter the command: nmap -p- -sV --open 10.0.2.0
 
-## 📌 2. `pwd` — Print Working Directory
 
-Displays the current working directory path.
 
-### **Example**
 
-```bash
-admin@ip-10-0-1-11:~$ pwd
-/home/admin
-```
 
----
 
-## 📂 3. `ls` — List Directory Contents
 
-Lists files and directories.
 
-### **Useful Options**
-
-* `-a` or `--all` – Show all files (including hidden)
-* `-d` or `--directory` – Show directory info instead of contents
-* `-F` or `--classify` – Append indicators to entries
-* `-h` or `--human-readable` – Human-readable file sizes
-* `-l` – Long listing format
-
----
-
-## 💬 4. `echo` — Print Line of Text
-
-Outputs text to the terminal.
-
-### **Example**
-
-```bash
-admin@ip-10-0-1-11:~$ echo HELLO
-HELLO
-```
-
----
-
-## 📖 5. `cat` — Concatenate and Display Files
-
-Prints the contents of a file to the terminal.
-
-### **Example**
-
-```bash
-admin@ip-10-0-1-11:~$ echo HELLO > test.txt
-admin@ip-10-0-1-11:~$ cat test.txt
-HELLO
-```
-
----
-
-## 🔍 6. `find` — Search for Files and Directories
-
-Finds files or directories based on various criteria.
-
-### **Useful Options**
-
-* `-name pattern` – Search by name
-* `-nouser` – Files with no owner
-* `-nogroup` – Files with no group
-* `-size n` – Files of specific size
-* `-type c` – Search by type (e.g. `f` for file, `d` for directory)
-* `-user name` – Owned by a specific user
-
-### **Examples**
-
-```bash
-find . -name test.txt
-./test.txt
-
-find /home -name test.txt
-/home/admin/test.txt
-```
-
----
-
-## 🔎 7. `grep` — Search Inside Files
-
-Searches for patterns in file contents.
-
-### **Useful Options**
-
-* `-i` or `--ignore-case` – Case-insensitive search
-* `-r` – Recursive search
-
-### **Examples**
-
-```bash
-grep HELLO test.txt
-HELLO
-
-grep -r HELLO .
-test.txt:HELLO
-```
-
----
-
-## 📄 8. `cp` — Copy Files and Directories
-
-Copies files from one location to another.
-
-### **Example**
-
-```bash
-cp test.txt test2.txt
-ls test*
-# Output: test2.txt test.txt
-```
-
----
-
-## 🔀 9. `mv` — Move or Rename
-
-Moves or renames files and directories.
-
-### **Example**
-
-```bash
-mv test.txt newfile.txt
-ls -la newfile.txt
-# Output:
-# -rwxrwxrwx 1 admin admin 6 Sep 13 09:41 newfile.txt
-```
-
----
-
-## 🗑️ 10. `rm` — Remove Files and Directories
-
-Deletes files or directories permanently.
-
-### ⚠️ Warning:
-
-* There is **no undo** for this action.
-* Be cautious: `rm * .html` (with a space) will remove **all files** and then return an error.
-
-### **Example**
-
-```bash
-ls
-# Output: BurpSuiteCommunity Desktop Downloads newfile.txt Pictures test2.txt
-
-rm -f test2.txt
-rm -f newfile.txt
-ls
-# Output: BurpSuiteCommunity Desktop Downloads Pictures
-```
-
----
-
-### ✅ Tip:
-
-Use `man <command>` to get more detailed info on any command:
-
-```bash
-man ls
-```
-
-```
-
-Let me know if you’d like this in PDF or HTML too!
-```
 
