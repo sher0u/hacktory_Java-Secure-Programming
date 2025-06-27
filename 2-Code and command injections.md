@@ -46,3 +46,43 @@ List of characters to be filtered:
 
 ## Lab 1:RouterV1
 We are going to work with a router configuration web interface. We will find command injection vulnerabilities and get secret information.
+- Run the machine
+- open the browoser and put the adress http://www.hacktory.lab
+- go for the admin pannel
+- in the hostane field ping
+- The output is ping -c 1 ping
+- now in the field we should type ping -c 1 127.0.0.1
+- in the hostbname field put ;ls;
+- the output will be like bindemo-baseetcflag_secret_jv.txtliblicense-eplv10-.........
+- we can see the flag_secret_jv.txt
+- now we should use this command ;cat flag_secret_jv.txt;
+- we can see in the output the flag // java_rce_attack
+- close the machien
+## Lab 2:RouterV1 
+Нам предстоит исправить уязвимости в веб-интерфейсе конфигурации роутера, которые мы обнаружили ранее.
+- Open the machine
+- Go to Code editor
+- the first thing is checking the Admin.java
+- Direclty without thinking twice  we can see that that problem in the
+- `Process proc = rt.exec(new String[] {"sh", "-c", "ping -c 1 " + req.getParameter("cmd")});`
+
+why? because we are using sh-c this will open the shell direclty and we are passing the user input direclty into the shell
+lets fix this
+    `String cmdParam = req.getParameter("cmd");
+    // Basic input validation
+    if (cmdParam == null || cmdParam.contains(";") || cmdParam.contains("&") || cmdParam.contains("|")) {
+        req.setAttribute("output", "Invalid input detected.");
+        this.doGet(req, resp);
+        return;
+    }`
+
+- after this i used the hint to know where the 2 problem 
+`processBuilder.command("bash", "-c", "nslookup " + request.getAttribute("cmd"));`
+- dont use the bash-c lets use safe argument separation `processBuilder.command("nslookup", (String)request.getAttribute("cmd"));`
+
+- we can use input validation as we did in the admin java its good
+- after correcting use the deploy adn the flag will be shown in the output of the console 
+//Your flag is: JAVA_RCE_DEFENDER
+
+    
+
