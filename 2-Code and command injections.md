@@ -85,6 +85,8 @@ lets fix this
 //Your flag is: JAVA_RCE_DEFENDER
 
 ## Lab 3:FFF:
+We are going to work with the FFF (fast file finder) website and try to inject a command through its search bar. We will need the knowledge about some command arguments.
+
 - Start you machine 
 - Go to http://www.hacktory.lab
 - try find -help
@@ -102,4 +104,66 @@ lets fix this
 - close your machine
 - Good luck from kader
     
+## Lab 4:FFF:
+Now it's time to fix the vulnerabilities of FFF (fast file finder)!
+- open your machine
+- open code editor
+- locate the main.jave source code
+- analyse it
+- we can see direclty the mistake in
+- `Process proc = Runtime.getRuntime().exec("find /sources/ -name " + filename);`
+- this allow the command ;cat;
+- fix the code
+package org.hacktory;
+`import javax.servlet.RequestDispatcher;`
+`import javax.servlet.ServletException;`
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+public class Main extends HttpServlet {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String filename = req.getParameter("filename");
+        StringBuilder output = new StringBuilder();
+
+        // Basic input validation: only allow safe characters
+        if (filename == null || !filename.matches("^[a-zA-Z0-9._-]+$")) {
+            output.append("Invalid filename.");
+        } else {
+            try {
+                ProcessBuilder pb = new ProcessBuilder("find", "/sources/", "-name", filename);
+                Process proc = pb.start();
+
+                BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+                BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+                String s;
+
+                while ((s = stdInput.readLine()) != null) {
+                    output.append(s).append("<br/>");
+                }
+
+                while ((s = stdError.readLine()) != null) {
+                    output.append(s).append("<br/>");
+                }
+            } catch (IOException e) {
+                output.append("Error running find: ").append(e.getMessage());
+            }
+        }
+
+        req.setAttribute("output", output.toString());
+        this.doGet(req, resp);
+    }
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/view/index.jsp");
+        requestDispatcher.forward(req, resp);
+    }
+}
+- deploy your code
+- the flag is JAVA_RCE_ARGUMENT_SOLVER
+
+
+
 
