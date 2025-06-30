@@ -43,7 +43,43 @@ PATH\_TRAVERSAL\_fl\@g
 - the end
 - take notes good luck from kader
 
+## Lab2:YAOFR 
+Now we have to fix a vulnerability in the file manager.
+**steps:**
+- open the machine
+- open the file editor
+- how to find the file that containt the problem
+- lets search for somthing look like path=
+- after this check the mistake where 
+- we can see that the problem is here `if(new File(folderSearch,path).isFile()) {`
+- there is not validation and this will give the user input somthing ../../../etc/passwd
+- we can replcae the mistake with this
+```
+File target = new File(folderSearch, path).getCanonicalFile();
+if (!target.getAbsolutePath().startsWith(folderSearch)) {
+    throw new SecurityException("Invalid file path!");
+}
+if (target.isFile()) {
+    if (target.getCanonicalPath().equals("/etc/passwd")) {
+        model.addAttribute("flag", "PATH_TRAVERSAL_fl@g");
+    }
 
+    BufferedReader br = new BufferedReader(new FileReader(target));
+    try {
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line).append(System.lineSeparator());
+        }
+    } finally {
+        br.close();
+    }
+}
+```
+- After deploying
+- test the code
+- the flag is : DOTdotSLASH
+- Take notes
+- Good luck from kader
 
 
 
