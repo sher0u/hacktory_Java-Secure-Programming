@@ -273,3 +273,14 @@ ResultSet rs = stmt.executeQuery();
 - inject this ' OR '1'='1' -- 
  see the flag save it and save note s
 goood luck
+
+## LAB2:Bully
+- open the machine
+- open the editor
+- we need to search wheer is the problem
+- saerch for somthing like this `String query = String.format( "select login from users where login='%s' and passwd='%s'", (String)req.getParameter("login"),(String)req.getParameter("password"));`
+- you need to fix it using the PreparedStatement check the teory
+- after running you will find the flag
+- the flag is JAVA_SQLINJECTION_STUDENT
+- good luck
+- 
