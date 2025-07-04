@@ -526,10 +526,15 @@ Note note = noteService.getById(id);
 * Test your code
 * The flag is **JAVA\_SQL\_NoT3s**
 
+
+
+
+
+
 ```
 ## ✅ Good luck from Kader!
 
-
+```
 
 
 
