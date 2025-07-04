@@ -493,8 +493,41 @@ sqlmap -u "http://10.0.2.10/note/1*" --batch -D notes -T secret -C flag --dump
 
 ---
 
-## ✅ Good luck from Kader!
+---
+# 🔐 LAB6: Sqill – fixing:
 
+- Open the machine  
+- Open the code editor  
+- Search in the source code  
+- Find the part where `id` is used in a SQL query  
+
+## Original Vulnerable Code
+
+```java
+// Vulnerable code: concatenating user input directly into SQL query
+
+Query query = entityManager.createNativeQuery(
+    "SELECT a.id, a.user_id, a.public, a.title, " +
+    "       a.text, a.date_created, a.date_updated " +
+    "FROM note AS a " +
+    "WHERE a.id=" + id
+);
+````
+
+## Fixed Code
+
+```java
+// Safe code: using parameterized queries or service methods
+
+Note note = noteService.getById(id);
+```
+
+* Deploy your fixed code
+* Test your code
+* The flag is **JAVA\_SQL\_NoT3s**
+
+```
+## ✅ Good luck from Kader!
 
 
 
