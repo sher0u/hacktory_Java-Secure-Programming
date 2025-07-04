@@ -316,4 +316,79 @@ Find the 100% promo code, apply it, make an order, and get the flag.
    not_easy_sql_injection
    ```
 ---
+Perfect! Here's your write-up formatted as a proper GitHub `README.md` file for Lab 4 (`LAB4:4F1ng3r Discount`):
+
+---
+
+# LAB4: 4F1ng3r Discount 🛒💥  
+**Protect the store so that nobody could get access to promocodes through vulnerabilities.**
+
+## 🧠 Goal
+Secure the online shop application from SQL injection attacks and retrieve the final flag after patching the vulnerabilities.
+
+---
+
+## 🔨 Steps
+
+### 🖥️ 1. Open the VM and Launch Code Editor
+- Navigate to the project source.
+- Review all files, especially `Checkpromo.java` and `Checkout.java`.
+
+---
+
+### 🔍 2. Vulnerability Analysis
+
+#### 🔓 Found Vulnerability in `Checkpromo.java`:
+```java
+String promoCode = (String)req.getParameter("promocode");
+String query = String.format("SELECT modifier FROM `promo` WHERE `promo`='%s' LIMIT 1", promoCode);
+rs = stmt.executeQuery(query);
+````
+
+* ❌ **Problem:** Raw string concatenation → **SQL Injection**
+* ✅ **Fix:** Use `PreparedStatement` to securely parameterize inputs.
+
+#### 🔓 Found Second Vulnerability in `Checkout.java`:
+
+```java
+rs = stmt.executeQuery("select modifier from promo where promo='" + promoCode + "'");
+```
+
+* ❌ Same injection vulnerability.
+* ✅ Replaced with `PreparedStatement`.
+
+---
+
+### ✅ 3. Secure Code Fixes
+
+**☑️ Updated both files using `PreparedStatement`**
+No logic was changed—only SQL queries were secured.
+
+---
+
+### 🚀 4. Deployment
+
+* Build the project.
+* Redeploy on the local server.
+* Use the “Test your code” button from the bot interface.
+
+---
+
+## 🎉 Result
+
+After successfully testing the patched code, the flag is revealed:
+
+```text
+✅ FLAG: JAVA_SQLINJECTION_SHOP_HELPER
+```
+
+---
+
+## ✍️ Notes
+
+>  by **Kader** identifying and fixing both SQL injection vulnerabilities in `Checkpromo` and `Checkout`.
+
+---
+
+
 
