@@ -1,46 +1,58 @@
-# Cross-site request forgery
 ---
-## Theory
+
+````markdown
+# 🛡️ Cross-site request forgery
+---
+
+## 📘 Theory
 
 Cross-Site Request Forgery (CSRF) tricks a logged-in user's browser into sending unwanted requests to a web app, exploiting the browser’s automatic inclusion of cookies or credentials. Attackers can perform unauthorized actions like changing passwords or liking posts without the user’s knowledge.
 
-Key points:
-- Victim must be authenticated.
-- Exploits trusted session cookies.
-- GET requests can be attacked using tags like `<img>`.
-- POST requests require more complex methods such as hidden auto-submitted forms or JavaScript.
-- Protection involves CSRF tokens, `SameSite` cookies, and header validations.
+🔑 Key points:
+- 🧑‍💻 Victim must be authenticated.
+- 🍪 Exploits trusted session cookies.
+- 🖼️ GET requests can be attacked using tags like `<img>`.
+- 📩 POST requests require more complex methods such as hidden auto-submitted forms or JavaScript.
+- 🛡️ Protection involves CSRF tokens, `SameSite` cookies, and header validations.
 
 ---
 
-## Lab 1: Likes!
+## 🧪 Lab 1: Likes!
+
 You have to add 'likes' for a post using a CSRF vulnerability. To do that, you will register at the resource and examine its functionality.
 
-### Steps
-- open the machine 
-- enter to the website 
-1. Register and log in.
-2. Visit `/post/1`.
-3. Notice the like request is a GET: `/like/1?value=1`.(check this using the burp)
-4. We already know that the get we can use the img trick Inject the comment :
+### 🧭 Steps
+- 💻 open the machine  
+- 🌐 enter to the website  
+
+1. 📝 Register and log in.  
+2. 🔍 Visit `/post/1`.  
+3. 🛰️ Notice the like request is a GET: `/like/1?value=1`. (check this using the burp)  
+4. 🧠 We already know that the get we can use the img trick. Inject the comment:
+
    ```html
    <img src="/like/1?value=1">
 ````
 
-5. Every visitor will send a like automatically.
-6. After enough likes which is five, get the flag.
+5. 👥 Every visitor will send a like automatically.
+6. 🏁 After enough likes (5+), get the flag.
 
 ---
 
-## Lab 2: Likes!
+## 🔐 Lab 2: Likes!
+
 Make "Likes" safer again
-### Goal
+
+### 🎯 Goal
 
 Fix the CSRF vulnerability by enabling Spring Security’s built-in CSRF protection.
 
-### Steps
-1. Open `WebSecurityConfig.java`.
-2. Find `.csrf().disable()` and remove `.disable()`:
+### 🧭 Steps
+
+1. ✍️ Open `WebSecurityConfig.java`.
+
+2. 🛠️ Find `.csrf().disable()` and remove `.disable()`:
+
    ```java
    http
        .csrf()
@@ -48,22 +60,28 @@ Fix the CSRF vulnerability by enabling Spring Security’s built-in CSRF protect
        .authorizeRequests()
        // existing matchers
    ```
-3. Fix syntax issues (missing `.and()`, braces).
-4. Rebuild and redeploy.
-5. Confirm that POST requests now require CSRF tokens.
+
+3. ⚙️ Fix syntax issues (missing `.and()`, braces).
+
+4. 🚀 Rebuild and redeploy.
+
+5. ✅ Confirm that POST requests now require CSRF tokens.
 
 ---
 
-  ## Lab 3: Post me some like
+## 💣 Lab 3: Post me some like
+
 "Likes" are never superfluous, however, now it will be a little more difficult to wind them up.
 
 Make `/post/1` get more than five likes when the like is done via POST request.
 
-### Steps
+### 🧭 Steps
 
-1. Register and log in.
-2. Observe the like action uses POST `/like/1` with body `value=1`.(using burb)
-3. Since `<img>` won’t work for POST, inject this comment:
+1. 📝 Register and log in.
+
+2. 🔍 Observe the like action uses POST `/like/1` with body `value=1`. (using burp)
+
+3. 🧠 Since `<img>` won’t work for POST, inject this comment:
 
    ```html
    <form action="/like/1" method="POST" style="display:none;" id="csrfForm">
@@ -73,24 +91,27 @@ Make `/post/1` get more than five likes when the like is done via POST request.
      document.getElementById('csrfForm').submit();
    </script>
    ```
-4. Visitors will silently send POST like requests.
-5. After 5+ likes, obtain the flag.
----
 
-### Flag obtained: `CSRF_FLAG_MASTER`
+4. 👀 Visitors will silently send POST like requests.
 
-```
+5. 🏁 After 5+ likes, obtain the flag.
 
 ---
 
-## Conclusion
-try  to understand then the teory well this will help to realise lab;
-Much love from kader
+## 🎉 Flag obtained: `CSRF_FLAG_MASTER`
+
 ---
 
-## References
+## 🧠 Conclusion
+
+try to understand then the teory well this will help to realise lab;
+❤️ Much love from **kader**
+
+---
+
+## 📚 References
 
 * [OWASP CSRF Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
 * [Spring Security CSRF Documentation](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#csrf)
 
-
+```
